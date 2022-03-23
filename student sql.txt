@@ -1,0 +1,18 @@
+CREATE DATABASE school;
+CREATE TABLE student(Roll_no int,S_name varchar(30),S_address varchar(30),CONSTRAINT p_key PRIMARY KEY (Roll_no));
+CREATE TABLE marksheet(Roll_no int,sub1 int,sub2 int,sub3 int,CONSTRAINT f_key FOREIGN KEY (Roll_no) REFERENCES student(Roll_no));
+
+INSERT INTO student (Roll_no, S_name, S_address) VALUES ('1', 'Rahul', 'Pattom');
+INSERT INTO student (Roll_no, S_name, S_address) VALUES ('2', 'Sachin', 'Ambala mukku');
+INSERT INTO student (Roll_no, S_name, S_address) VALUES ('3', 'Saurav', 'Nalanchira');
+INSERT INTO marksheet (Roll_no,sub1,sub2,sub3) VALUES ('1','78','89','94');
+INSERT INTO marksheet (Roll_no,sub1,sub2,sub3) VALUES ('2','54','65','77');
+INSERT INTO marksheet (Roll_no,sub1,sub2,sub3) VALUES ('3','23','78','46');
+
+delete from marksheet where Roll_no=2;
+delete from marksheet where Roll_no=3;
+
+ALTER TABLE marksheet ADD grade int;
+ALTER TABLE marksheet DROP column sub2;
+ALTER TABLE student ADD phone_no int;
+ALTER TABLE student ADD CONSTRAINT con check(length(phone_no)=10);
