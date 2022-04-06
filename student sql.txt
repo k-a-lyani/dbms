@@ -1,0 +1,42 @@
+CREATE DATABASE school;
+CREATE TABLE student(Roll_no int,S_name varchar(30),S_address varchar(30),CONSTRAINT p_key PRIMARY KEY (Roll_no));
+CREATE TABLE marksheet(Roll_no int,sub1 int,sub2 int,sub3 int,CONSTRAINT f_key FOREIGN KEY (Roll_no) REFERENCES student(Roll_no));
+
+INSERT INTO student (Roll_no, S_name, S_address) VALUES ('1', 'Rahul', 'Pattom');
+INSERT INTO student (Roll_no, S_name, S_address) VALUES ('2', 'Sachin', 'Ambala mukku');
+INSERT INTO student (Roll_no, S_name, S_address) VALUES ('3', 'Saurav', 'Nalanchira');
+INSERT INTO marksheet (Roll_no,sub1,sub2,sub3) VALUES ('1','78','89','94');
+INSERT INTO marksheet (Roll_no,sub1,sub2,sub3) VALUES ('2','54','65','77');
+INSERT INTO marksheet (Roll_no,sub1,sub2,sub3) VALUES ('3','23','78','46');
+
+delete from marksheet where Roll_no=2;
+delete from marksheet where Roll_no=3;
+
+ALTER TABLE marksheet ADD grade int;
+ALTER TABLE marksheet DROP column sub2;
+ALTER TABLE student ADD phone_no int;
+ALTER TABLE student ADD CONSTRAINT phone_no check(length(phone_no)=10);
+
+UPDATE student SET phone_no=8494746756 where Roll_no=1;
+UPDATE student SET phone_no=2537649274 where Roll_no=2;
+UPDATE student SET phone_no=4947467569 where Roll_no=3;
+
+select * from student where s_address='Pattom';
+select sum(sub1+sub3) from marksheet where roll_no=2;
+select s_name from student where roll_no=3;
+select phone_no from student where s_name='Sachin';
+
+
+CREATE TABLE bus(bus_no int,source varchar(20),destination varchar(20),couch_type varchar(20),CONSTRAINT pr_key PRIMARY KEY(bus_no));
+
+CREATE TABLE reservation(PNR_no int,journey_date date,no_of_seats int,address varchar(20),contact_no int,bus_no int,CONSTRAINT fo_key FOREIGN KEY(bus_no) REFERENCES bus(bus_no));
+
+CREATE TABLE ticket(ticket_no int,journey_date date,age int,sex varchar(10),source varchar(20),destination varchar(20),dep_time varchar(10),bus_no int,CONSTRAINT pkey PRIMARY KEY(ticket_no));
+
+CREATE TABLE passenger(PNR_no int,ticket_no int,name varchar(10),age int,sex varchar(10),contact_no int,CONSTRAINT fkey FOREIGN KEY(ticket_no) REFERENCES ticket(ticket_no));
+
+CREATE TABLE cancellation(PNR_no int,journey_date date,seat_no int,contact_no int);
+
+
+INSERT INTO bus (bus_no,source,destination,couch_type) VALUES('1','pattom','naruvamoodu','non-ac');
+INSERT INTO bus (bus_no,source,destination,couch_type) VALUES('2','meloor','semat','ac');
